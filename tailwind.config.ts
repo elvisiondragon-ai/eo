@@ -47,6 +47,9 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        "elegant-black": "hsl(var(--elegant-black))",
+        "celebration-gold": "hsl(var(--celebration-gold))",
+        "deep-crimson": "hsl(var(--deep-crimson))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -58,10 +61,19 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
       },
+      fontFamily: {
+        playfair: ["Playfair Display", "serif"],
+        inter: ["Inter", "sans-serif"],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      backgroundImage: {
+        "gradient-royal": "linear-gradient(to right, hsl(0 0% 18%), hsl(345 77% 28%), hsl(48 89% 50%))",
+        "gradient-dark": "linear-gradient(135deg, hsl(0 0% 18%), hsl(345 77% 28%))",
+        "gradient-gold": "linear-gradient(135deg, hsl(48 89% 50%), hsl(48 89% 60%))",
       },
       keyframes: {
         "accordion-down": {
