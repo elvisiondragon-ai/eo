@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { VendorCard } from "@/components/VendorCard";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type VendorCategory = "All" | "Venue" | "Catering" | "Florist" | "Photography" | "Entertainment";
 
@@ -89,6 +90,7 @@ const vendors = [
 ];
 
 const Vendors = () => {
+  const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<VendorCategory>("All");
 
   const filteredVendors = activeCategory === "All" 
@@ -97,16 +99,26 @@ const Vendors = () => {
 
   const categories: VendorCategory[] = ["All", "Venue", "Catering", "Florist", "Photography", "Entertainment"];
 
+  const getCategoryLabel = (category: VendorCategory) => {
+    if (category === "All") return t.vendors.filters.all;
+    if (category === "Venue") return t.vendors.filters.venue;
+    if (category === "Catering") return t.vendors.filters.catering;
+    if (category === "Florist") return "Florist";
+    if (category === "Photography") return t.vendors.filters.photo;
+    if (category === "Entertainment") return t.vendors.filters.entertainment;
+    return category;
+  };
+
   return (
-    <div className="min-h-screen pb-20">
+    <div className="min-h-screen pb-20 pt-16">
       {/* Header */}
       <section className="gradient-dark py-20 text-white">
         <div className="container mx-auto px-4 text-center">
           <h1 className="font-playfair text-5xl md:text-6xl font-bold mb-6">
-            Direktori Vendor Pilihan
+            {t.vendors.title}
           </h1>
           <p className="text-xl text-white/90 max-w-2xl mx-auto">
-            Network vendor premium yang telah kami kurasi dengan standar kualitas tertinggi untuk acara Anda
+            {t.vendors.subtitle}
           </p>
         </div>
       </section>
@@ -138,7 +150,7 @@ const Vendors = () => {
                     : ""
                 }
               >
-                {category === "All" ? "Semua" : category}
+                {getCategoryLabel(category)}
               </Button>
             ))}
           </div>
@@ -177,45 +189,20 @@ const Vendors = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="font-playfair text-4xl font-bold text-foreground mb-12 text-center">
-              Keuntungan Partnership Kami
+              {t.vendors.partnership.title}
             </h2>
             
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-card p-6 rounded-lg shadow-sm">
-                <h3 className="font-playfair text-2xl font-semibold text-foreground mb-3">
-                  Harga Preferential
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Dapatkan harga khusus dan paket eksklusif yang hanya tersedia melalui partnership kami dengan vendor
-                </p>
-              </div>
-
-              <div className="bg-card p-6 rounded-lg shadow-sm">
-                <h3 className="font-playfair text-2xl font-semibold text-foreground mb-3">
-                  Priority Booking
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Akses prioritas untuk booking di tanggal prime dan layanan VIP dari vendor partner kami
-                </p>
-              </div>
-
-              <div className="bg-card p-6 rounded-lg shadow-sm">
-                <h3 className="font-playfair text-2xl font-semibold text-foreground mb-3">
-                  Quality Assurance
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Semua vendor telah melalui screening ketat dan proven track record dalam acara high-end
-                </p>
-              </div>
-
-              <div className="bg-card p-6 rounded-lg shadow-sm">
-                <h3 className="font-playfair text-2xl font-semibold text-foreground mb-3">
-                  Koordinasi Seamless
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Tim kami telah terbiasa bekerja sama dengan vendor ini, memastikan koordinasi yang smooth
-                </p>
-              </div>
+              {t.vendors.partnership.items.map((benefit, index) => (
+                <div key={index} className="bg-card p-6 rounded-lg shadow-sm">
+                  <h3 className="font-playfair text-2xl font-semibold text-foreground mb-3">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {benefit.description}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

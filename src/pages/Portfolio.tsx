@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { EventCard } from "@/components/EventCard";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 import portfolioWedding from "@/assets/portfolio-wedding.jpg";
 import portfolioCorporate from "@/assets/portfolio-corporate.jpg";
 import portfolioGala from "@/assets/portfolio-gala.jpg";
@@ -54,6 +55,7 @@ const events = [
 ];
 
 const Portfolio = () => {
+  const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<EventCategory>("All");
 
   const filteredEvents = activeCategory === "All" 
@@ -62,16 +64,24 @@ const Portfolio = () => {
 
   const categories: EventCategory[] = ["All", "Wedding", "Corporate", "Gala"];
 
+  const getCategoryLabel = (category: EventCategory) => {
+    if (category === "All") return t.portfolio.filters.all;
+    if (category === "Wedding") return t.portfolio.filters.wedding;
+    if (category === "Corporate") return t.portfolio.filters.corporate;
+    if (category === "Gala") return t.portfolio.filters.gala;
+    return category;
+  };
+
   return (
-    <div className="min-h-screen pb-20">
+    <div className="min-h-screen pb-20 pt-16">
       {/* Header */}
       <section className="gradient-dark py-20 text-white">
         <div className="container mx-auto px-4 text-center">
           <h1 className="font-playfair text-5xl md:text-6xl font-bold mb-6">
-            Galeri Portofolio
+            {t.portfolio.title}
           </h1>
           <p className="text-xl text-white/90 max-w-2xl mx-auto">
-            Jelajahi koleksi acara mewah yang telah kami ciptakan dengan sempurna untuk klien kami
+            {t.portfolio.subtitle}
           </p>
         </div>
       </section>
@@ -91,7 +101,7 @@ const Portfolio = () => {
                     : ""
                 }
               >
-                {category === "All" ? "Semua" : category}
+                {getCategoryLabel(category)}
               </Button>
             ))}
           </div>
@@ -129,14 +139,14 @@ const Portfolio = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="font-playfair text-4xl font-bold text-foreground mb-8 text-center">
-              Studi Kasus: The Grand Ballroom Wedding
+              {t.portfolio.caseStudy.title}
             </h2>
             
             <div className="bg-card rounded-lg p-8 shadow-elegant">
               <div className="space-y-6">
                 <div>
                   <h3 className="font-playfair text-2xl font-semibold text-foreground mb-3">
-                    Tantangan
+                    {t.portfolio.caseStudy.challenge}
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Klien menginginkan pernikahan mewah dengan tema klasik elegan untuk 300 tamu dalam waktu persiapan yang terbatas - hanya 3 bulan.
@@ -145,7 +155,7 @@ const Portfolio = () => {
 
                 <div>
                   <h3 className="font-playfair text-2xl font-semibold text-foreground mb-3">
-                    Solusi Kami
+                    {t.portfolio.caseStudy.solution}
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Tim kami merancang konsep ballroom mewah dengan chandelier kristal, 5000+ bunga mawar putih premium, pencahayaan custom, dan koordinasi sempurna dengan 15+ vendor terpilih.
@@ -154,7 +164,7 @@ const Portfolio = () => {
 
                 <div>
                   <h3 className="font-playfair text-2xl font-semibold text-foreground mb-3">
-                    Hasil
+                    {t.portfolio.caseStudy.result}
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Acara berlangsung sempurna dengan standing ovation dari 300 tamu. Klien sangat puas dan merekomendasikan kami kepada 10+ kolega mereka untuk acara mendatang.

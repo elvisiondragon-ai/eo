@@ -1,17 +1,20 @@
 import { Home, Images, ListChecks, Bookmark, Mail } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const navItems = [
-  { icon: Home, label: "Beranda", path: "/" },
-  { icon: Images, label: "Portofolio", path: "/portfolio" },
-  { icon: ListChecks, label: "Layanan", path: "/services" },
-  { icon: Bookmark, label: "Vendor", path: "/vendors" },
-  { icon: Mail, label: "Kontak", path: "/contact" },
+const getNavItems = (t: any) => [
+  { icon: Home, label: t.nav.home, path: "/" },
+  { icon: Images, label: t.nav.portfolio, path: "/portfolio" },
+  { icon: ListChecks, label: t.nav.services, path: "/services" },
+  { icon: Bookmark, label: t.nav.vendors, path: "/vendors" },
+  { icon: Mail, label: t.nav.contact, path: "/contact" },
 ];
 
 export const BottomNav = () => {
   const location = useLocation();
+  const { t } = useLanguage();
+  const navItems = getNavItems(t);
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-elegant-black border-t border-border shadow-elegant">
